@@ -35,7 +35,51 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"nombre\": \"True Colors\",\r\n    \"descripcion\": \"El nuevo álbum de Zedd\",\r\n    \"imagen\": \"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fuser%2Fzeddvevo&psig=AOvVaw2FwfZjFd6rNRmQqXJGCrAg&ust=1700935208480000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCPCZhs2b3YIDFQAAAAAdAAAAABAI\"\r\n}",
+					"raw": "{\r\n    \"nombre\": \"Zedd\",\r\n    \"descripcion\": \"Un genio en la música electrónica\",\r\n    \"imagen\": \"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fuser%2Fzeddvevo&psig=AOvVaw2FwfZjFd6rNRmQqXJGCrAg&ust=1700935208480000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCPCZhs2b3YIDFQAAAAAdAAAAABAI\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/performers",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"performers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a performer with large description",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 412\", function () {\r",
+							"    pm.response.to.have.status(412);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Right error message\", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('message').that.equals('The performer description cannot be longer than 100 characters');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Zedd\",\r\n    \"descripcion\": \"Un genio en la música electrónicaUn genio en la música electrónicaUn genio en la música electrónicaUn genio en la música electrónicaUn genio en la música electrónica\",\r\n    \"imagen\": \"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fuser%2Fzeddvevo&psig=AOvVaw2FwfZjFd6rNRmQqXJGCrAg&ust=1700935208480000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCPCZhs2b3YIDFQAAAAAdAAAAABAI\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -115,6 +159,42 @@
 					"path": [
 						"performers",
 						"{{performerId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get one performer by wrong ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Right error message\", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('message').that.equals('The performer with the given id was not found');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/performers/{{wrongId}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"performers",
+						"{{wrongId}}"
 					]
 				}
 			},

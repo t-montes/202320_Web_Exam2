@@ -55,6 +55,94 @@
 			"response": []
 		},
 		{
+			"name": "Create an album with empty name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 412\", function () {\r",
+							"    pm.response.to.have.status(412);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Right error message\", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('message').that.equals('The album name cannot be empty');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"\",\r\n    \"caratula\": \"https://upload.wikimedia.org/wikipedia/en/c/c9/Zedd-True-Colors.png\",\r\n    \"fecha\": \"2000-10-31T01:30:00\",\r\n    \"descripcion\": \"El nuevo álbum de Zedd\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/albums",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"albums"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create an album with empty description",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 412\", function () {\r",
+							"    pm.response.to.have.status(412);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Right error message\", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('message').that.equals('The album description cannot be empty');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"True Colors\",\r\n    \"caratula\": \"https://upload.wikimedia.org/wikipedia/en/c/c9/Zedd-True-Colors.png\",\r\n    \"fecha\": \"2000-10-31T01:30:00\",\r\n    \"descripcion\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/albums",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"albums"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Get all albums",
 			"event": [
 				{
@@ -121,6 +209,42 @@
 			"response": []
 		},
 		{
+			"name": "Get one album by wrong ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Right error message\", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('message').that.equals('The album with the given id was not found');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/albums/{{wrongId}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"albums",
+						"{{wrongId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Delete an album by ID",
 			"event": [
 				{
@@ -147,6 +271,42 @@
 					"path": [
 						"albums",
 						"{{albumId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an album by wrong ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Right error message\", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('message').that.equals('The album with the given id was not found');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/albums/{{wrongId}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"albums",
+						"{{wrongId}}"
 					]
 				}
 			},
