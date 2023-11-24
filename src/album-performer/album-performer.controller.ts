@@ -1,7 +1,3 @@
-/**
- * 
- */
-
 import { Controller, Param, Post } from '@nestjs/common';
 import { UseInterceptors } from '@nestjs/common';
 import { BusinessErrorsInterceptor } from 'src/shared/interceptors/business-errors.interceptor';
