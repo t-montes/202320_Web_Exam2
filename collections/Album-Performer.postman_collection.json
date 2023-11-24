@@ -1,0 +1,151 @@
+{
+	"info": {
+		"_postman_id": "fa711f18-23c0-4d0c-b3b9-85b3f1302b99",
+		"name": "Album-Performer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18901686",
+		"_collection_link": "https://martian-desert-938170.postman.co/workspace/Web_Exam2_Tony~a00ca5ac-d785-4cb1-838c-50ae518d52c0/collection/18901686-fa711f18-23c0-4d0c-b3b9-85b3f1302b99?action=share&source=collection_link&creator=18901686"
+	},
+	"item": [
+		{
+			"name": "Create an album",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has an id property\", function () {\r",
+							"    pm.expect(pm.response.json()).to.have.property('id');\r",
+							"});\r",
+							"\r",
+							"var responseBody = pm.response.json();\r",
+							"var albumId = responseBody.id;\r",
+							"pm.globals.set(\"albumId\", albumId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"True Colors\",\r\n    \"caratula\": \"https://upload.wikimedia.org/wikipedia/en/c/c9/Zedd-True-Colors.png\",\r\n    \"fecha\": \"2000-10-31T01:30:00\",\r\n    \"descripcion\": \"El nuevo álbum de Zedd\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/albums",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"albums"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a performer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has an id property\", function () {\r",
+							"    pm.expect(pm.response.json()).to.have.property('id');\r",
+							"});\r",
+							"\r",
+							"var responseBody = pm.response.json();\r",
+							"var albumId = responseBody.id;\r",
+							"pm.globals.set(\"performerId\", albumId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"True Colors\",\r\n    \"descripcion\": \"El nuevo álbum de Zedd\",\r\n    \"imagen\": \"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fuser%2Fzeddvevo&psig=AOvVaw2FwfZjFd6rNRmQqXJGCrAg&ust=1700935208480000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCPCZhs2b3YIDFQAAAAAdAAAAABAI\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/performers",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"performers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add performer to album",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has an id property\", function () {\r",
+							"    pm.expect(pm.response.json()).to.have.property('id');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"True Colors\",\r\n    \"descripcion\": \"El nuevo álbum de Zedd\",\r\n    \"image\": \"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fuser%2Fzeddvevo&psig=AOvVaw2FwfZjFd6rNRmQqXJGCrAg&ust=1700935208480000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCPCZhs2b3YIDFQAAAAAdAAAAABAI\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/albums/{{albumId}}/performers/{{performerId}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"albums",
+						"{{albumId}}",
+						"performers",
+						"{{performerId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
