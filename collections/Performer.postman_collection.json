@@ -1,0 +1,124 @@
+{
+	"info": {
+		"_postman_id": "e92f89d3-f6d6-4141-912e-529fdfbdbf0d",
+		"name": "Performer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18901686",
+		"_collection_link": "https://martian-desert-938170.postman.co/workspace/Web_Exam2_Tony~a00ca5ac-d785-4cb1-838c-50ae518d52c0/collection/18901686-e92f89d3-f6d6-4141-912e-529fdfbdbf0d?action=share&source=collection_link&creator=18901686"
+	},
+	"item": [
+		{
+			"name": "Create a performer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has an id property\", function () {\r",
+							"    pm.expect(pm.response.json()).to.have.property('id');\r",
+							"});\r",
+							"\r",
+							"var responseBody = pm.response.json();\r",
+							"var albumId = responseBody.id;\r",
+							"pm.globals.set(\"performerId\", albumId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"True Colors\",\r\n    \"descripcion\": \"El nuevo álbum de Zedd\",\r\n    \"imagen\": \"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fuser%2Fzeddvevo&psig=AOvVaw2FwfZjFd6rNRmQqXJGCrAg&ust=1700935208480000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCPCZhs2b3YIDFQAAAAAdAAAAABAI\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/performers",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"performers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all performers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has an id property\", function () {\r",
+							"    pm.expect(pm.response.json()).to.have.length.gte(1);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/performers",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"performers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get one performer by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/performers/{{performerId}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"performers",
+						"{{performerId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

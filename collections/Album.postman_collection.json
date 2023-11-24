@@ -1,0 +1,156 @@
+{
+	"info": {
+		"_postman_id": "56fc3992-186e-4177-b051-68ac052a8bda",
+		"name": "Album",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18901686",
+		"_collection_link": "https://martian-desert-938170.postman.co/workspace/Web_Exam2_Tony~a00ca5ac-d785-4cb1-838c-50ae518d52c0/collection/18901686-56fc3992-186e-4177-b051-68ac052a8bda?action=share&source=collection_link&creator=18901686"
+	},
+	"item": [
+		{
+			"name": "Create an album",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has an id property\", function () {\r",
+							"    pm.expect(pm.response.json()).to.have.property('id');\r",
+							"});\r",
+							"\r",
+							"var responseBody = pm.response.json();\r",
+							"var albumId = responseBody.id;\r",
+							"pm.globals.set(\"albumId\", albumId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"True Colors\",\r\n    \"caratula\": \"https://upload.wikimedia.org/wikipedia/en/c/c9/Zedd-True-Colors.png\",\r\n    \"fecha\": \"2000-10-31T01:30:00\",\r\n    \"descripcion\": \"El nuevo álbum de Zedd\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/albums",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"albums"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all albums",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has an id property\", function () {\r",
+							"    pm.expect(pm.response.json()).to.have.length.gte(1);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/albums",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"albums"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get one album by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/albums/{{albumId}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"albums",
+						"{{albumId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an album by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/albums/{{albumId}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"albums",
+						"{{albumId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

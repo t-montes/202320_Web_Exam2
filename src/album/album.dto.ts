@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsDate, IsUrl } from 'class-validator';
+import { IsNotEmpty, IsString, IsISO8601, IsUrl } from 'class-validator';
 
 export class AlbumDto {
     @IsNotEmpty()
@@ -10,7 +10,7 @@ export class AlbumDto {
     readonly caratula: string;
 
     @IsNotEmpty()
-    @IsDate()
+    @IsISO8601()
     readonly fecha: Date;
 
     @IsNotEmpty()
