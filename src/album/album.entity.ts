@@ -1,5 +1,6 @@
-import { Column, Entity, ManyToMany, PrimaryGeneratedColumn, JoinTable } from 'typeorm';
+import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn, JoinTable } from 'typeorm';
 import { PerformerEntity } from '../performer/performer.entity';
+import { TrackEntity } from '../track/track.entity';
 
 @Entity()
 export class AlbumEntity {
@@ -18,7 +19,10 @@ export class AlbumEntity {
     @Column()
     descripcion: string;
 
-    @ManyToMany(type => AlbumEntity, album => album.performers)
+    @ManyToMany(type => PerformerEntity, performer => performer.albums)
     @JoinTable()
     performers: PerformerEntity[];
+
+    @OneToMany(type => TrackEntity, track => track.album)
+    tracks: TrackEntity[];
 }

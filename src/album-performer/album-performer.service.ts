@@ -17,7 +17,10 @@ export class AlbumPerformerService {
 
     async addPerformerToAlbum(albumId: string, performerId: string): Promise<AlbumEntity> {
         const album: AlbumEntity = await this.albumRepository.findOne(
-            {where: {id: albumId}}
+            {
+                where: {id: albumId},
+                relations: ['performers']
+            }
         );
         if(!album)
             throw new BusinessLogicException('The album with the given id was not found', BusinessError.NOT_FOUND);
@@ -26,6 +29,8 @@ export class AlbumPerformerService {
         );
         if(!performer)
             throw new BusinessLogicException('The performer with the given id was not found', BusinessError.NOT_FOUND);
+        if(album.performers.length >= 3)
+            throw new BusinessLogicException('The album cannot have more than 3 performers', BusinessError.PRECONDITION_FAILED);
         album.performers = [...album.performers, performer];
         return await this.albumRepository.save(album);
     }
